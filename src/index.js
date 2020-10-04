@@ -36,9 +36,28 @@ const MORSE_TABLE = {
     '----.':  '9',
     '-----':  '0',
 };
-
 function decode(expr) {
-    // write your solution here
+    let decodedText = '';
+
+    for (let i = 0; i < expr.length; i+=10){
+         let tenSymbStr = expr.slice(i, i+10);
+
+         if (tenSymbStr === '**********') {
+            decodedText += ' ';
+            continue;
+        }
+
+        let morseChar = '';
+         for (let j = 0; j < 10; j+=2){
+            
+           let twoSymb = tenSymbStr.slice(j, j+2);
+             if (twoSymb !== '00'){
+                morseChar += twoSymb === '10' ? '.' : '-';
+            }
+          }
+          decodedText += MORSE_TABLE[morseChar];
+    }
+    return decodedText;
 }
 
 module.exports = {
